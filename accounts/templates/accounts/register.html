@@ -1,0 +1,74 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+
+            <div class="card border-0"
+                 style="
+                    background: linear-gradient(180deg, #fffaf0 0%, #ffffff 65%);
+                    box-shadow:
+                        0 14px 30px rgba(212,175,55,0.22),
+                        0 6px 14px rgba(0,0,0,0.06);
+                    border-radius: 16px;
+                    border: 1px solid rgba(212,175,55,0.35);
+                 ">
+
+                <div class="card-body p-4">
+
+                    <div class="text-center mb-4">
+                        <div class="fs-1 mb-2">💍</div>
+                        <h4 class="fw-bold">Create Account</h4>
+                        <p class="text-muted small mb-0">
+                            Join us to explore fine jewelry
+                        </p>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} py-2">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label small">
+                                    {{ field.label }}
+                                </label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ field.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-dark w-100 py-2">
+                            ✨ Create Account
+                        </button>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <p class="text-center small mb-0">
+                        Already have an account?
+                        <a href="{% url 'accounts:login' %}"
+                           class="fw-semibold text-decoration-none">
+                            Sign in
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

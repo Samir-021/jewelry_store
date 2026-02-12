@@ -1,0 +1,189 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+<div class="row g-5">
+    <!-- LEFT: LARGE IMAGE -->
+    <div class="col-md-7">
+        <div class="product-image-wrapper bg-light rounded shadow-sm d-flex align-items-center justify-content-center p-3"
+            style="min-height: 500px;">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="product-image img-fluid" alt="{{ product.name }}"
+                data-zoom="{{ product.image.url }}" style="max-height: 600px; object-fit: contain;">
+            {% else %}
+            <img src="https://via.placeholder.com/600x600.png?text=No+Image" class="product-image img-fluid">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- RIGHT: DETAILS -->
+    <div class="col-md-5">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb small text-uppercase">
+                <li class="breadcrumb-item"><a href="{% url 'shop:home' %}" class="text-muted">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'shop:product_list' %}" class="text-muted">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.category.name }}</li>
+            </ol>
+        </nav>
+
+        <h1 class="display-5 fw-bold mb-2" style="font-family: 'Cinzel', serif;">{{ product.name }}</h1>
+        <div class="d-flex align-items-center mb-4">
+            <h3 class="me-3 mb-0 fw-bold text-dark">NPR {{ product.price }}</h3>
+            {% if product.available %}
+            <span class="badge bg-success rounded-pill px-3">In Stock</span>
+            {% else %}
+            <span class="badge bg-danger rounded-pill px-3">Out of Stock</span>
+            {% endif %}
+        </div>
+
+        {% if product.description %}
+        <p class="text-muted lead fs-6 mb-4" style="line-height: 1.8;">{{ product.description }}</p>
+        {% endif %}
+
+        <hr class="my-4 text-muted">
+
+        <!-- ACTIONS -->
+        <form method="post" action="{% url 'shop:add_to_cart' product.id %}">
+            {% csrf_token %}
+
+            {% if product.category.slug == "rings" or product.category.parent.slug == "rings" %}
+            <div class="mb-4">
+                <label class="form-label fw-bold text-uppercase small ls-1">Ring Size</label>
+                <select name="ring_size" class="form-select w-50" required
+                    style="border-radius: 0; border-color: #dee2e6;">
+                    <option value="">Select Size</option>
+                    <option>5</option>
+                    <option>5.5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>7.5</option>
+                    <option>8</option>
+                    <option>8.5</option>
+                    <option>9</option>
+                    <option>9.5</option>
+                </select>
+            </div>
+            {% endif %}
+
+            <div class="d-flex gap-3 align-items-center">
+                <button type="submit" class="btn btn-dark btn-lg flex-grow-1 py-3 text-uppercase fw-bold"
+                    style="background-color: #2c2c2c; border-radius: 0; letter-spacing: 1px;">
+                    Add to Cart
+                </button>
+            </div>
+            <p class="small text-muted mt-3"><i class="bi bi-truck me-2"></i> Free shipping on orders over NPR 5,000</p>
+        </form>
+
+        <!-- SPECIFICATIONS -->
+        <div class="mt-5">
+            <h6 class="text-uppercase fw-bold border-bottom pb-2 mb-3">Product Specifications</h6>
+            <div class="row fs-6">
+                {% if product.metal %}
+                <div class="col-6 mb-2 text-muted">Metal:</div>
+                <div class="col-6 mb-2 fw-semibold">{{ product.metal|title }}</div>
+                {% endif %}
+
+                {% if product.stone %}
+                <div class="col-6 mb-2 text-muted">Stone:</div>
+                <div class="col-6 mb-2 fw-semibold">{{ product.stone|title }}</div>
+                {% endif %}
+
+                {% if product.color %}
+                <div class="col-6 mb-2 text-muted">Color:</div>
+                <div class="col-6 mb-2 fw-semibold">{{ product.color|title }}</div>
+                {% endif %}
+
+                {% if product.gender %}
+                <div class="col-6 mb-2 text-muted">Gender:</div>
+                <div class="col-6 mb-2 fw-semibold">{{ product.gender|title }}</div>
+                {% endif %}
+
+                {% if product.brand %}
+                <div class="col-6 mb-2 text-muted">Brand:</div>
+                <div class="col-6 mb-2 fw-semibold">{{ product.brand }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+{% if related_products %}
+<div class="mt-5 pt-5 border-top">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h3 class="mb-2 display-6 fw-bold" style="font-family: 'Cinzel', serif;">You May Also Like</h3>
+            <p class="text-muted">Complement your style with these recommendations</p>
+        </div>
+    </div>
+    <div class="row g-4">
+        {% for related in related_products %}
+        <div class="col-md-3 col-6">
+            <div class="card h-100 border-0 shadow-sm product-card">
+                <div class="position-relative overflow-hidden">
+                    <a href="{% url 'shop:product_detail' related.id %}">
+                        {% if related.image %}
+                        <img src="{{ related.image.url }}" class="card-img-top" alt="{{ related.name }}"
+                            style="height: 250px; object-fit: cover; transition: transform 0.3s ease;">
+                        {% else %}
+                        <img src="https://via.placeholder.com/300x300?text=No+Image" class="card-img-top"
+                            style="height: 250px; object-fit: cover;">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="card-body text-center">
+                    <h6 class="card-title" style="font-family: 'Cinzel', serif;">
+                        <a href="{% url 'shop:product_detail' related.id %}" class="text-dark text-decoration-none">
+                            {{ related.name }}
+                        </a>
+                    </h6>
+                    <p class="card-text fw-bold text-muted">NPR {{ related.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<style>
+    .product-card:hover img {
+        transform: scale(1.55);
+    }
+
+    .ls-1 {
+        letter-spacing: 1px;
+    }
+
+    .product-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        cursor: crosshair;
+    }
+
+    .product-image {
+        transition: transform 0.1s ease-out;
+        transform-origin: center;
+    }
+</style>
+
+<script>
+    const wrapper = document.querySelector(".product-image-wrapper");
+    const image = document.querySelector(".product-image");
+
+    if (wrapper && image) {
+        wrapper.addEventListener("mousemove", function (e) {
+            const rect = wrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            image.style.transformOrigin =
+                `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`;
+            image.style.transform = "scale(2.2)";
+        });
+
+        wrapper.addEventListener("mouseleave", function () {
+            image.style.transformOrigin = "center center";
+            image.style.transform = "scale(1)";
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Shop{% endif %}
+{% endblock %}
+
+{% block content %}
+<!-- SHOP HERO -->
+<div class="bg-light py-5 mb-5 text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold" style="font-family: 'Cinzel', serif;">
+      {% if category %}{{ category.name }}{% else %}All Collections{% endif %}
+    </h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb justify-content-center text-uppercase small text-muted">
+        <li class="breadcrumb-item"><a href="{% url 'shop:home' %}" class="text-decoration-none text-muted">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Shop</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section class="container pb-5">
+
+  <!-- FILTERS & CATEGORIES -->
+  <div class="row mb-5">
+    <!-- Categories Sidebar -->
+    <div class="col-12">
+      <div class="card border-0 shadow-sm p-4">
+        <form method="get" class="row g-3">
+          {% if category %}
+          <input type="hidden" name="category" value="{{ category.slug }}">
+          {% endif %}
+
+          <div class="col-md-3">
+            <label class="form-label small text-muted text-uppercase fw-bold">Price Range</label>
+            <div class="input-group input-group-sm">
+              <span class="input-group-text bg-white border-end-0">NPR</span>
+              <input type="number" name="min_price" class="form-control border-start-0" placeholder="Min"
+                value="{{ min_price }}">
+              <span class="input-group-text bg-white border-start-0 border-end-0">-</span>
+              <input type="number" name="max_price" class="form-control border-start-0" placeholder="Max"
+                value="{{ max_price }}">
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label small text-muted text-uppercase fw-bold">Metal</label>
+            <select name="metal" class="form-select form-select-sm">
+              <option value="">All Metals</option>
+              {% with m=request.GET.metal %}
+              <option value="gold" {% if m == "gold" %}selected{% endif %}>Gold</option>
+              <option value="silver" {% if m == "silver" %}selected{% endif %}>Silver</option>
+              <option value="platinum" {% if m == "platinum" %}selected{% endif %}>Platinum</option>
+              {% endwith %}
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label small text-muted text-uppercase fw-bold">Gemstone</label>
+            <select name="stone" class="form-select form-select-sm">
+              <option value="">All Stones</option>
+              {% with s=request.GET.stone %}
+              <option value="diamond" {% if s == "diamond" %}selected{% endif %}>Diamond</option>
+              <option value="ruby" {% if s == "ruby" %}selected{% endif %}>Ruby</option>
+              <option value="emerald" {% if s == "emerald" %}selected{% endif %}>Emerald</option>
+              <option value="none" {% if s == "none" %}selected{% endif %}>No Stone</option>
+              {% endwith %}
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label small text-muted text-uppercase fw-bold">Gender</label>
+            <select name="gender" class="form-select form-select-sm">
+              <option value="">Any</option>
+              {% with g=request.GET.gender %}
+              <option value="men" {% if g == "men" %}selected{% endif %}>Men</option>
+              <option value="women" {% if g == "women" %}selected{% endif %}>Women</option>
+              <option value="unisex" {% if g == "unisex" %}selected{% endif %}>Unisex</option>
+              {% endwith %}
+            </select>
+          </div>
+
+          <div class="col-md-3 d-flex align-items-end">
+            <button class="btn btn-dark w-100 btn-sm text-uppercase fw-bold" style="letter-spacing: 1px;">Update
+              Results</button>
+          </div>
+
+          <div class="col-12 text-end">
+            <a href="{% url 'shop:product_list' %}" class="text-muted small text-decoration-none"><i
+                class="bi bi-x-circle me-1"></i> Clear All Filters</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="row g-4">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-0 shadow-sm product-card">
+        <div class="position-relative overflow-hidden">
+          <a href="{% url 'shop:product_detail' product.id %}">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}"
+              style="height: 350px; object-fit: cover; transition: transform 0.5s ease;">
+            {% else %}
+            <img src="https://via.placeholder.com/300x300.png?text=No+Image" class="card-img-top"
+              style="height: 350px; object-fit: cover;">
+            {% endif %}
+          </a>
+          {% if not product.available %}
+          <div class="position-absolute top-0 end-0 m-2 badge bg-dark text-uppercase">Sold Out</div>
+          {% endif %}
+
+          <div
+            class="card-overlay position-absolute bottom-0 start-0 w-100 p-3 bg-white bg-opacity-90 d-flex justify-content-center align-items-center opacity-0 transition-opacity"
+            style="transform: translateY(100%); transition: transform 0.3s ease, opacity 0.3s ease;">
+            <a href="{% url 'shop:product_detail' product.id %}"
+              class="btn btn-dark btn-sm text-uppercase fw-bold rounded-0 px-4">View Details</a>
+          </div>
+        </div>
+
+        <div class="card-body text-center pt-4">
+          <div class="small text-muted text-uppercase mb-1">{{ product.category.name }}</div>
+          <h5 class="card-title fw-bold" style="font-family: 'Cinzel', serif;">
+            <a href="{% url 'shop:product_detail' product.id %}" class="text-dark text-decoration-none">{{ product.name }}</a>
+          </h5>
+          <p class="text-muted fw-bold mb-0">NPR {{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12 py-5 text-center">
+      <i class="bi bi-search fs-1 text-muted mb-3"></i>
+      <h3>No products found</h3>
+      <p class="text-muted">Try adjusting your filters or search criteria.</p>
+      <a href="{% url 'shop:product_list' %}" class="btn btn-outline-dark mt-2">View All Products</a>
+    </div>
+    {% endfor %}
+  </div>
+
+</section>
+
+<style>
+  .product-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .product-card:hover .card-overlay {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  .product-card {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  }
+</style>
+
+<script>
+  document.querySelector("form").addEventListener("submit", function (e) {
+    const min = parseFloat(document.querySelector("[name='min_price']").value);
+    const max = parseFloat(document.querySelector("[name='max_price']").value);
+    if (min && max && min > max) {
+      e.preventDefault();
+      alert("Min price cannot be greater than max price");
+    }
+  });
+</script>
+
+{% endblock %}

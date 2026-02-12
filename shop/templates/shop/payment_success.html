@@ -1,0 +1,35 @@
+{% extends "shop/base.html" %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card border-0 shadow-sm text-center p-5">
+
+                <div class="fs-1 text-success mb-3">✔</div>
+
+                <h3 class="fw-bold mb-3">Payment Successful</h3>
+
+                <p class="text-muted">
+                    Thank you for your purchase.
+                </p>
+
+                <hr>
+                <p class="mb-1"><strong>Order ID:</strong></p>
+                <p class="text-muted small">{{ order.order_id }}</p>
+
+                <p class="mb-1"><strong>Total Paid:</strong></p>
+                <p class="fw-semibold">Rs. {{ order.total_amount }}</p>
+
+                <a href="{% url 'shop:home' %}" class="btn btn-dark mt-4">
+                    Continue Shopping
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

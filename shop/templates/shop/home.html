@@ -1,0 +1,187 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Home | My Jewelry{% endblock %}
+
+{% block content %}
+<!-- HERO CAROUSEL -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+  </div>
+  <div class="carousel-inner">
+    <!-- Slide 1 -->
+    <div class="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1758995115682-1452a1a9e35b?q=80&w=990&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        class="d-block w-100" alt="Elegant Jewelry" style="height: 600px; object-fit: cover; filter: brightness(0.6);">
+      <div class="carousel-caption d-none d-md-block" style="bottom: 20%;">
+        <h1 class="display-3 fw-bold" style="font-family: 'Cinzel', serif; letter-spacing: 2px;">Timeless Elegance</h1>
+        <p class="lead text-light mb-4">Discover our handcrafted collection of premium jewelry for every occasion.</p>
+        <a href="{% url 'shop:product_list' %}" class="btn btn-lg btn-light px-5 py-3 rounded-0"
+          style="color: #b48a78; font-weight: bold; text-transform: uppercase;">Shop Collection</a>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1607703829739-c05b7beddf60?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        class="d-block w-100" alt="Diamond Rings" style="height: 600px; object-fit: cover; filter: brightness(0.6);">
+      <div class="carousel-caption d-none d-md-block" style="bottom: 20%;">
+        <h1 class="display-3 fw-bold" style="font-family: 'Cinzel', serif; letter-spacing: 2px;">Forever Yours</h1>
+        <p class="lead text-light mb-4">Exquisite engagement rings that speak the language of love.</p>
+        <a href="{% url 'shop:product_list' %}?category=rings" class="btn btn-lg btn-light px-5 py-3 rounded-0"
+          style="color: #b48a78; font-weight: bold; text-transform: uppercase;">Explore Rings</a>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=80&w=2070&auto=format&fit=crop"
+        class="d-block w-100" alt="Luxury Necklaces" style="height: 600px; object-fit: cover; filter: brightness(0.6);">
+      <div class="carousel-caption d-none d-md-block" style="bottom: 20%;">
+        <h1 class="display-3 fw-bold" style="font-family: 'Cinzel', serif; letter-spacing: 2px;">Golden Glow</h1>
+        <p class="lead text-light mb-4">Add a touch of luxury to your everyday style.</p>
+        <a href="{% url 'shop:product_list' %}?category=necklaces" class="btn btn-lg btn-light px-5 py-3 rounded-0"
+          style="color: #b48a78; font-weight: bold; text-transform: uppercase;">View Necklaces</a>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- FEATURED COLLECTIONS (placeholder links for now) -->
+<section class="container py-5 my-5">
+  <div class="row text-center mb-5">
+    <div class="col-12">
+      <h2 class="display-5 fw-bold" style="font-family: 'Cinzel', serif;">Our Collections</h2>
+      <p class="text-muted">Curated just for you</p>
+    </div>
+  </div>
+  <div class="row g-4">
+    <!-- Bridal -->
+    <div class="col-md-4">
+      <div class="position-relative overflow-hidden group-hover-zoom rounded shadow-sm">
+        <img src="https://images.unsplash.com/photo-1638617501607-5dfb8b079ebf?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          class="w-100" style="height: 400px; object-fit: cover; transition: transform 0.5s ease;">
+        <div
+          class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-25">
+          <a href="{% url 'shop:product_list' %}?category=rings"
+            class="btn btn-light rounded-0 px-4 py-2 opacity-90 fw-bold">BRIDAL</a>
+        </div>
+      </div>
+    </div>
+    <!-- Everyday -->
+    <div class="col-md-4">
+      <div class="position-relative overflow-hidden group-hover-zoom rounded shadow-sm">
+        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=2070&auto=format&fit=crop"
+          class="w-100" style="height: 400px; object-fit: cover; transition: transform 0.5s ease;">
+        <div
+          class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-25">
+          <a href="{% url 'shop:product_list' %}" class="btn btn-light rounded-0 px-4 py-2 opacity-90 fw-bold">EVERYDAY
+            LUXURY</a>
+        </div>
+      </div>
+    </div>
+    <!-- Gifts -->
+    <div class="col-md-4">
+      <div class="position-relative overflow-hidden group-hover-zoom rounded shadow-sm">
+        <img src="https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?q=80&w=2070&auto=format&fit=crop"
+          class="w-100" style="height: 400px; object-fit: cover; transition: transform 0.5s ease;">
+        <div
+          class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-25">
+          <a href="{% url 'shop:product_list' %}?category=earrings"
+            class="btn btn-light rounded-0 px-4 py-2 opacity-90 fw-bold">GIFTS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="bg-light py-5 mb-5">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-md-4">
+        <div class="p-4">
+          <i class="bi bi-gem fs-1 mb-3" style="color: #b48a78;"></i>
+          <h4 class="fw-bold">Certified Diamonds</h4>
+          <p class="text-muted small">Every stone is hand-selected and certified for authenticity and quality.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4">
+          <i class="bi bi-truck fs-1 mb-3" style="color: #b48a78;"></i>
+          <h4 class="fw-bold">Free Shipping</h4>
+          <p class="text-muted small">Complimentary insured shipping on all orders over NPR 5,000.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4">
+          <i class="bi bi-shield-check fs-1 mb-3" style="color: #b48a78;"></i>
+          <h4 class="fw-bold">Lifetime Warranty</h4>
+          <p class="text-muted small">We stand by our craftsmanship with a comprehensive lifetime warranty.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="container py-5">
+  <h2 class="text-center mb-5 display-6 fw-bold" style="font-family: 'Cinzel', serif;">New Arrivals</h2>
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-0 shadow-sm product-card">
+        <div class="position-relative overflow-hidden">
+          {% if product.image %}
+          <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}"
+            style="height: 350px; object-fit: cover; transition: transform 0.3s ease;">
+          {% else %}
+          <img src="https://via.placeholder.com/300x300.png?text=No+Image" class="card-img-top"
+            style="height: 350px; object-fit: cover;">
+          {% endif %}
+          <div
+            class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-25 opacity-0 transition-opacity">
+            <a href="{% url 'shop:product_detail' product.id %}" class="btn btn-light rounded-pill px-4 py-2">View
+              Details</a>
+          </div>
+        </div>
+        <div class="card-body text-center pt-4">
+          <h5 class="card-title fw-bold" style="font-family: 'Cinzel', serif;">{{ product.name }}</h5>
+          <p class="text-muted mb-0">NPR {{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center">No featured products yet.</p>
+    {% endfor %}
+
+  </div>
+</section>
+
+<style>
+  /* Zoom effect for home images */
+  .group-hover-zoom:hover img {
+    transform: scale(1.05);
+  }
+
+  .product-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .product-card:hover .card-overlay {
+    opacity: 1 !important;
+  }
+
+  .transition-opacity {
+    transition: opacity 0.3s ease;
+  }
+</style>
+{% endblock %}
