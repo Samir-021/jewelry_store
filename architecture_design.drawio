@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net"><diagram id="arch" name="Architecture"><mxGraphModel dx="1422" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0"><root>
+	<mxCell id="0" />
+	<mxCell id="1" parent="0" />
+	<mxCell id="2" value="Client&#10;(Web Browser)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+		<mxGeometry x="120" y="260" width="160" height="80" as="geometry" />
+	</mxCell>
+	<mxCell id="3" value="Web Server&#10;(Django Application)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+		<mxGeometry x="520" y="260" width="160" height="80" as="geometry" />
+	</mxCell>
+	<mxCell id="4" value="Database&#10;(Relational DB)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+		<mxGeometry x="930" y="230" width="140" height="140" as="geometry" />
+	</mxCell>
+	<mxCell id="5" value="eSewa Gateway&#10;(Payment API)" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+		<mxGeometry x="500" y="540" width="200" height="120" as="geometry" />
+	</mxCell>
+	<mxCell id="6" value="HTTP / HTTPS" style="endArrow=classic;startArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeWidth=2;labelBackgroundColor=#ffffff;strokeColor=#333333;" edge="1" parent="1" source="2" target="3">
+		<mxGeometry relative="1" as="geometry" />
+	</mxCell>
+	<mxCell id="7" value="SQL Queries" style="endArrow=classic;startArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeWidth=2;labelBackgroundColor=#ffffff;strokeColor=#333333;" edge="1" parent="1" source="3" target="4">
+		<mxGeometry relative="1" as="geometry" />
+	</mxCell>
+	<mxCell id="8" value="API Requests" style="endArrow=classic;startArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;strokeWidth=2;labelBackgroundColor=#ffffff;strokeColor=#333333;" edge="1" parent="1" source="3" target="5">
+		<mxGeometry relative="1" as="geometry" />
+	</mxCell>
+</root></mxGraphModel></diagram></mxfile>

@@ -1,0 +1,69 @@
+erDiagram
+    %% Relationships
+    Users ||--o{ Orders : "places"
+    Orders ||--|| Payments : "has"
+    Orders ||--o{ Order_Items : "contains"
+    Products ||--o{ Order_Items : "appears in"
+    Vendors ||--o{ Products : "manages"
+    Categories ||--o{ Products : "contains"
+    Products ||--|| Inventory : "has"
+
+    %% Tables and Attributes
+    Users {
+        int user_id PK
+        varchar name
+        varchar email
+        varchar password
+        varchar role
+    }
+
+    Vendors {
+        int vendor_id PK
+        varchar name
+        varchar email
+        varchar password
+    }
+
+    Categories {
+        int category_id PK
+        varchar category_name
+    }
+
+    Products {
+        int product_id PK
+        varchar name
+        decimal price
+        varchar metal
+        varchar gender
+        text description
+        int category_id FK
+        int vendor_id FK
+    }
+
+    Inventory {
+        int inventory_id PK
+        int product_id FK
+        int stock
+    }
+
+    Orders {
+        int order_id PK
+        int user_id FK
+        datetime order_date
+        decimal total_amount
+    }
+
+    Order_Items {
+        int order_item_id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+    }
+
+    Payments {
+        int payment_id PK
+        int order_id FK
+        decimal amount
+        varchar method
+        varchar status
+    }

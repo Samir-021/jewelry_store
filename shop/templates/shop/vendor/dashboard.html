@@ -1,0 +1,38 @@
+{% extends base_template|default:'shop/base.html' %}
+
+{% block vendor_content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-white">
+        <h4 class="mb-0">Dashboard Overview</h4>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Welcome, {{ store.owner_name }}!</h5>
+        <p class="text-muted">{{ store.store_name }} ({{ store.city }})</p>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card bg-light border-0">
+                    <div class="card-body text-center">
+                        <h3 class="display-6">{{ products.count }}</h3>
+                        <p class="text-muted mb-0">Total Products</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-light border-0">
+                    <div class="card-body text-center">
+                        <h3 class="display-6">
+                            {% if store.verification_status == 'verified' %}
+                            <i class="bi bi-check-circle text-success"></i>
+                            {% else %}
+                            <i class="bi bi-hourglass-split text-warning"></i>
+                            {% endif %}
+                        </h3>
+                        <p class="text-muted mb-0">Status</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

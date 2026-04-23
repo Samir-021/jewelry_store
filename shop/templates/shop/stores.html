@@ -1,0 +1,318 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Nearby Jewelry Stores | Jewelry Store{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+    #map {
+        height: 600px;
+        width: 100%;
+        border-radius: 8px;
+        z-index: 1;
+    }
+
+    .store-card {
+        border: 1px solid #eee;
+        border-left: 4px solid #b48a78;
+        /* Luxury Gold */
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+
+    .store-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .loader-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(2px);
+    }
+
+    .btn-gold {
+        background-color: #b48a78;
+        color: white;
+        border: none;
+    }
+
+    .btn-gold:hover {
+        background-color: #a07665;
+        color: white;
+    }
+
+    /* Scrollbar for stores list */
+    #stores-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #stores-list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    #stores-list::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+
+    #stores-list::-webkit-scrollbar-thumb:hover {
+        background: #b48a78;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h2 class="display-5 fw-bold" style="font-family: 'Cinzel', serif;">Nearby Jewelry Stores</h2>
+        <p class="text-muted">Discover our exclusive partners and boutiques near you.</p>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Map Column -->
+    <div class="col-lg-8 mb-4 position-relative">
+        <div id="map-container" class="position-relative shadow-sm rounded">
+            <div id="loading-overlay" class="loader-overlay">
+                <div class="text-center">
+                    <div class="spinner-border text-secondary" role="status"></div>
+                    <p class="mt-2 text-muted small" id="loading-text">Locating you...</p>
+                </div>
+            </div>
+            <div id="map"></div>
+        </div>
+        <div class="mt-3 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <small class="text-muted"><i class="bi bi-info-circle"></i> Radius:</small>
+                <select id="radius-select" class="form-select form-select-sm"
+                    style="width: auto; border-color: #b48a78;" onchange="updateRadius()">
+                    <option value="5000" selected>5 km</option>
+                    <option value="10000">10 km</option>
+                    <option value="20000">20 km</option>
+                    <option value="50000">50 km</option>
+                </select>
+            </div>
+            <button class="btn btn-outline-secondary btn-sm" onclick="locateUser()">
+                <i class="bi bi-geo-alt-fill"></i> Use My Location
+            </button>
+        </div>
+    </div>
+
+    <!-- Stores List Column -->
+    <div class="col-lg-4">
+        <h4 class="mb-3 fw-bold" style="font-family: 'Cinzel', serif;">Stores Found</h4>
+        <div id="stores-list" class="vstack gap-3" style="max-height: 600px; overflow-y: auto; padding-right: 5px;">
+            <div class="text-center py-5 text-muted">
+                <i class="bi bi-map fs-1"></i>
+                <p>Waiting for location...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    let map, userMarker, userCircle;
+    let markers = [];
+    let currentLat, currentLon;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initMap();
+        locateUser();
+    });
+
+    function initMap() {
+        // Default center (can be anywhere, e.g., NYC or Kathmandu)
+        map = L.map('map').setView([27.7172, 85.3240], 13); // Default: Kathmandu
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    }
+
+    function locateUser() {
+        showLoading(true, "Finding your location...");
+
+        if (!navigator.geolocation) {
+            showError("Geolocation is not supported by your browser.");
+            showLoading(false);
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                currentLat = position.coords.latitude;
+                currentLon = position.coords.longitude;
+                const radius = document.getElementById('radius-select').value;
+                updateUserLocation(currentLat, currentLon, radius);
+                fetchNearbyStores(currentLat, currentLon, radius);
+            },
+            (error) => {
+                let msg = "Unable to retrieve your location.";
+                if (error.code === 1) msg = "Location permission denied. Please allow location access.";
+                showError(msg);
+                showLoading(false);
+            }
+        );
+    }
+
+    function updateRadius() {
+        if (currentLat && currentLon) {
+            const radius = document.getElementById('radius-select').value;
+            updateUserLocation(currentLat, currentLon, radius);
+            fetchNearbyStores(currentLat, currentLon, radius);
+        }
+    }
+
+    function updateRadius() {
+        if (currentLat && currentLon) {
+            const radius = document.getElementById('radius-select').value;
+            updateUserLocation(currentLat, currentLon, radius);
+            fetchNearbyStores(currentLat, currentLon, radius);
+        }
+    }
+
+    function updateUserLocation(lat, lon, radius = 5000) {
+        if (userMarker) map.removeLayer(userMarker);
+        if (userCircle) map.removeLayer(userCircle);
+
+        // Custom icon for user
+        const userIcon = L.divIcon({
+            className: 'bg-transparent',
+            html: '<i class="bi bi-person-circle fs-3 text-primary" style="text-shadow: 0 2px 5px rgba(0,0,0,0.3);"></i>',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+
+        userMarker = L.marker([lat, lon], { icon: userIcon }).addTo(map)
+            .bindPopup("You are here").openPopup();
+
+        userCircle = L.circle([lat, lon], {
+            color: '#b48a78',
+            fillColor: '#b48a78',
+            fillOpacity: 0.1,
+            radius: parseInt(radius) // Visual radius based on selection
+        }).addTo(map);
+
+        map.fitBounds(userCircle.getBounds());
+    }
+
+    function fetchNearbyStores(lat, lon, radius = 5000) {
+        showLoading(true, `Searching within ${radius / 1000}km...`);
+
+        // Use the Django view URL
+        const url = "{% url 'shop:nearby_stores_api' %}";
+
+        fetch(`${url}?lat=${lat}&lon=${lon}&radius=${radius}`)
+            .then(response => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) throw new Error(data.error);
+                displayStores(data.stores);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError("Failed to load nearby stores. Please try again.");
+            })
+            .finally(() => {
+                showLoading(false);
+            });
+    }
+
+    function displayStores(stores) {
+        const listContainer = document.getElementById('stores-list');
+        listContainer.innerHTML = "";
+
+        // Clear existing markers
+        markers.forEach(m => map.removeLayer(m));
+        markers = [];
+
+        if (!stores || stores.length === 0) {
+            listContainer.innerHTML = `
+                <div class="text-center py-4 text-muted">
+                    <p>No jewelry stores found within 5km.</p>
+                </div>`;
+            return;
+        }
+
+        stores.forEach((store, index) => {
+            // Add Marker
+            const marker = L.marker([store.lat, store.lon]).addTo(map);
+            const popupContent = `<b>${store.name}</b><br>${store.address || "No address"}`;
+            marker.bindPopup(popupContent);
+            markers.push(marker);
+
+            // Add List Item
+            const card = document.createElement('div');
+            card.className = "card store-card p-3 shadow-sm bg-white mb-2";
+            card.onclick = () => focusOnStore(store.lat, store.lon, index);
+
+            let phoneHtml = '';
+            if (store.phone) {
+                phoneHtml = `<p class="card-text small mb-2"><i class="bi bi-telephone"></i> ${store.phone}</p>`;
+            }
+
+            card.innerHTML = `
+                <h5 class="card-title fw-bold mb-1 fs-6 text-dark">${store.name}</h5>
+                <p class="card-text small text-muted mb-2">
+                    <i class="bi bi-geo-alt"></i> ${store.address || "Address not available"}
+                </p>
+                ${phoneHtml}
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span class="badge bg-light text-dark border">Nearby</span>
+                    <button class="btn btn-sm btn-link text-decoration-none text-gold p-0">
+                        Show on Map <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            `;
+            listContainer.appendChild(card);
+        });
+    }
+
+    function focusOnStore(lat, lon, index) {
+        map.setView([lat, lon], 16);
+        markers[index].openPopup();
+        // Scroll map into view on mobile
+        if (window.innerWidth < 992) {
+            document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function showLoading(show, text = "Loading...") {
+        const overlay = document.getElementById('loading-overlay');
+        const overlayText = document.getElementById('loading-text');
+        if (show) {
+            if (overlayText) overlayText.innerText = text;
+            overlay.classList.remove('d-none');
+            overlay.classList.add('d-flex');
+        } else {
+            overlay.classList.add('d-none');
+            overlay.classList.remove('d-flex');
+        }
+    }
+
+    function showError(msg) {
+        const listContainer = document.getElementById('stores-list');
+        listContainer.innerHTML = `
+            <div class="alert alert-warning text-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill mb-2 fs-4"></i><br>
+                ${msg}
+            </div>`;
+    }
+</script>
+{% endblock %}

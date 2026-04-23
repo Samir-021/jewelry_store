@@ -33,6 +33,8 @@
           <input type="hidden" name="category" value="{{ category.slug }}">
           {% endif %}
 
+          <!-- Price Filter -->
+
           <div class="col-md-3">
             <label class="form-label small text-muted text-uppercase fw-bold">Price Range</label>
             <div class="input-group input-group-sm">
@@ -53,7 +55,7 @@
               <option value="gold" {% if m == "gold" %}selected{% endif %}>Gold</option>
               <option value="silver" {% if m == "silver" %}selected{% endif %}>Silver</option>
               <option value="platinum" {% if m == "platinum" %}selected{% endif %}>Platinum</option>
-              {% endwith %}
+              {% endwith %} 
             </select>
           </div>
 

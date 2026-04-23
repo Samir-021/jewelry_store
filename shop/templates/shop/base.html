@@ -149,6 +149,62 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             font-weight: 700;
         }
+
+        /* --- Expandable Search Bar --- */
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .search-wrapper:hover,
+        .search-wrapper:focus-within {
+            border-color: #b48a78;
+            box-shadow: 0 4px 10px rgba(180, 138, 120, 0.15);
+        }
+
+        .search-wrapper input {
+            width: 0;
+            opacity: 0;
+            border: none;
+            outline: none;
+            padding: 0;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .search-wrapper:hover input,
+        .search-wrapper:focus-within input,
+        .search-wrapper input:not(:placeholder-shown) {
+            width: 220px;
+            opacity: 1;
+            padding: 8px 10px 8px 20px;
+        }
+
+        .search-wrapper button {
+            background: transparent;
+            border: none;
+            color: #666;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .search-wrapper:hover button,
+        .search-wrapper:focus-within button {
+            color: #b48a78;
+        }
     </style>
 
     {% block extra_css %}{% endblock %}
@@ -159,7 +215,7 @@
     <!-- MAIN NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{% url 'shop:home' %}">My Jewelry</a>
+            <a class="navbar-brand fw-bold" href="{% url 'shop:home' %}">Jewelry Store</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -185,7 +241,12 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Stores</a>
+                        <a class="nav-link" href="{% url 'shop:stores' %}">Stores</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop:vendor_login' %}"
+                            style="color: #b48a78; font-weight: bold;">Store Admin</a>
                     </li>
 
                     <li class="nav-item">
@@ -223,36 +284,49 @@
     </nav>
 
     <!-- MEGA DROPDOWN CATEGORY NAVBAR -->
-    <div class="category-bar bg-light border-bottom">
-        <div class="container d-flex">
+    <div class="category-bar bg-light border-bottom py-2">
+        <div class="container d-flex justify-content-between align-items-center">
 
-            {% for main in navbar_main_categories %}
-            <div class="dropdown category-dropdown me-4">
+            <!-- Categories -->
+            <div class="d-flex flex-wrap align-items-center">
+                {% for main in navbar_main_categories %}
+                <div class="dropdown category-dropdown me-4">
 
-                <a href="{% url 'shop:product_list' %}?category={{ main.slug }}" class="category-link">
-                    {{ main.name }}
-                </a>
+                    <a href="{% url 'shop:product_list' %}?category={{ main.slug }}" class="category-link">
+                        {{ main.name }}
+                    </a>
 
-                <div class="dropdown-menu mega-menu p-4">
-                    <div class="row">
+                    <div class="dropdown-menu mega-menu p-4">
+                        <div class="row">
 
-                        {% for child in main.children.all %}
-                        <div class="col-6 col-md-4 mb-2">
-                            <a class="dropdown-item" href="{% url 'shop:product_list' %}?category={{ child.slug }}">
-                                {{ child.name }}
-                            </a>
+                            {% for child in main.children.all %}
+                            <div class="col-6 col-md-4 mb-2">
+                                <a class="dropdown-item" href="{% url 'shop:product_list' %}?category={{ child.slug }}">
+                                    {{ child.name }}
+                                </a>
+                            </div>
+                            {% empty %}
+                            <div class="col-12 text-muted">
+                                No subcategories
+                            </div>
+                            {% endfor %}
+
                         </div>
-                        {% empty %}
-                        <div class="col-12 text-muted">
-                            No subcategories
-                        </div>
-                        {% endfor %}
-
                     </div>
-                </div>
 
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
+            <!-- Search Bar -->
+            <div class="search-bar-container ms-auto">
+                <form action="{% url 'shop:product_list' %}" method="get" class="search-wrapper">
+                    <input type="text" name="q" placeholder="Search products..." aria-label="Search">
+                    <button type="submit" aria-label="Submit Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
 
         </div>
     </div>
@@ -269,7 +343,7 @@
             <div class="row">
                 <!-- Brand -->
                 <div class="col-md-4 mb-4">
-                    <h5 class="text-uppercase fw-bold" style="font-family: 'Cinzel', serif; color: #b48a78;">My Jewelry
+                    <h5 class="text-uppercase fw-bold" style="font-family: 'Cinzel', serif; color: #b48a78;">Jewelry Store
                     </h5>
                     <p class="small text-muted">Exquisite designs for moments that last forever. Handcrafted with love
                         and precision.</p>
@@ -310,7 +384,8 @@
                         </div>
                     </form>
                     <div class="d-flex gap-3">
-                        <a href="#" class="text-light"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="https://www.facebook.com/xyzsamirabc" class="text-light" target="_blank"><i
+                                class="bi bi-facebook fs-5"></i></a>
                         <a href="#" class="text-light"><i class="bi bi-instagram fs-5"></i></a>
                         <a href="#" class="text-light"><i class="bi bi-twitter fs-5"></i></a>
                         <a href="#" class="text-light"><i class="bi bi-pinterest fs-5"></i></a>
@@ -319,7 +394,7 @@
             </div>
             <hr class="border-secondary my-4">
             <div class="text-center small text-muted">
-                &copy; {{ now.year }} My Jewelry. All Rights Reserved.
+                &copy; {{ now.year }} Jewelry Store. All Rights Reserved.
             </div>
         </div>
     </footer>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net"><diagram id="wireframe" name="Homepage Wireframe"><mxGraphModel dx="1422" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1400" math="0" shadow="0"><root>
+	<mxCell id="0" />
+	<mxCell id="1" parent="0" />
+	<mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#444444;" vertex="1" parent="1">
+		<mxGeometry x="150" y="50" width="1100" height="1100" as="geometry" />
+	</mxCell>
+	<mxCell id="3" value="🔴 🟡 🟢  &amp;nbsp;&amp;nbsp;&amp;nbsp; | &amp;nbsp; www.jewelry-ecommerce.com" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dee2e6;strokeColor=#adb5bd;align=left;spacingLeft=25;fontFamily=Helvetica;fontColor=#495057;" vertex="1" parent="1">
+		<mxGeometry x="150" y="50" width="1100" height="40" as="geometry" />
+	</mxCell>
+	<mxCell id="4" value="💍 JEWELRY STORE   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; HOME &amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp; RINGS &amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp; NECKLACES &amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp; EARRINGS&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[ 🔍 Search ] &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 🛒 Cart (0) &amp;nbsp;&amp;nbsp;&amp;nbsp; 👤 Login" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;fontStyle=1;fontSize=14;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="150" y="90" width="1100" height="60" as="geometry" />
+	</mxCell>
+	<mxCell id="5" value="Exclusive High-End Diamond Collection&#10;&#10;[ Hero Image Placeholder ]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;fontStyle=1;fontSize=24;fontColor=#868e96;" vertex="1" parent="1">
+		<mxGeometry x="200" y="180" width="1000" height="320" as="geometry" />
+	</mxCell>
+	<mxCell id="6" value="Shop Collection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#212529;fontColor=#ffffff;strokeColor=none;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="620" y="420" width="160" height="45" as="geometry" />
+	</mxCell>
+	<mxCell id="7" value="Shop by Category" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=22;fontColor=#212529;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="600" y="530" width="200" height="40" as="geometry" />
+	</mxCell>
+	<mxCell id="8" value="Engagement Rings" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f3f5;strokeColor=#ced4da;fontStyle=1;fontSize=16;fontColor=#495057;" vertex="1" parent="1">
+		<mxGeometry x="200" y="590" width="300" height="120" as="geometry" />
+	</mxCell>
+	<mxCell id="9" value="Luxury Pendants" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f3f5;strokeColor=#ced4da;fontStyle=1;fontSize=16;fontColor=#495057;" vertex="1" parent="1">
+		<mxGeometry x="550" y="590" width="300" height="120" as="geometry" />
+	</mxCell>
+	<mxCell id="10" value="Gold Earrings" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f3f5;strokeColor=#ced4da;fontStyle=1;fontSize=16;fontColor=#495057;" vertex="1" parent="1">
+		<mxGeometry x="900" y="590" width="300" height="120" as="geometry" />
+	</mxCell>
+	<mxCell id="11" value="Featured Listings" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=22;fontColor=#212529;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="600" y="760" width="200" height="40" as="geometry" />
+	</mxCell>
+	<mxCell id="12" value="&lt;b&gt;Diamond Solitaire&lt;/b&gt;&lt;br&gt;$1,299.00" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=center;verticalAlign=bottom;paddingBottom=40;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="200" y="820" width="200" height="260" as="geometry" />
+	</mxCell>
+	<mxCell id="13" value="[ Product Image ]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;fontStyle=2;fontColor=#868e96;" vertex="1" parent="1">
+		<mxGeometry x="200" y="820" width="200" height="160" as="geometry" />
+	</mxCell>
+	<mxCell id="14" value="Add to Cart" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#212529;fontColor=#ffffff;strokeColor=none;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="235" y="1030" width="130" height="35" as="geometry" />
+	</mxCell>
+	<mxCell id="15" value="&lt;b&gt;Sapphire Necklace&lt;/b&gt;&lt;br&gt;$850.00" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=center;verticalAlign=bottom;paddingBottom=40;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="466" y="820" width="200" height="260" as="geometry" />
+	</mxCell>
+	<mxCell id="16" value="[ Product Image ]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;fontStyle=2;fontColor=#868e96;" vertex="1" parent="1">
+		<mxGeometry x="466" y="820" width="200" height="160" as="geometry" />
+	</mxCell>
+	<mxCell id="17" value="Add to Cart" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#212529;fontColor=#ffffff;strokeColor=none;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="501" y="1030" width="130" height="35" as="geometry" />
+	</mxCell>
+	<mxCell id="18" value="&lt;b&gt;Gold Hoop Earrings&lt;/b&gt;&lt;br&gt;$250.00" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=center;verticalAlign=bottom;paddingBottom=40;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="733" y="820" width="200" height="260" as="geometry" />
+	</mxCell>
+	<mxCell id="19" value="[ Product Image ]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;fontStyle=2;fontColor=#868e96;" vertex="1" parent="1">
+		<mxGeometry x="733" y="820" width="200" height="160" as="geometry" />
+	</mxCell>
+	<mxCell id="20" value="Add to Cart" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#212529;fontColor=#ffffff;strokeColor=none;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="768" y="1030" width="130" height="35" as="geometry" />
+	</mxCell>
+	<mxCell id="21" value="&lt;b&gt;Platinum Band&lt;/b&gt;&lt;br&gt;$600.00" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=center;verticalAlign=bottom;paddingBottom=40;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="1000" y="820" width="200" height="260" as="geometry" />
+	</mxCell>
+	<mxCell id="22" value="[ Product Image ]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;fontStyle=2;fontColor=#868e96;" vertex="1" parent="1">
+		<mxGeometry x="1000" y="820" width="200" height="160" as="geometry" />
+	</mxCell>
+	<mxCell id="23" value="Add to Cart" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#212529;fontColor=#ffffff;strokeColor=none;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="1">
+		<mxGeometry x="1035" y="1030" width="130" height="35" as="geometry" />
+	</mxCell>
+</root></mxGraphModel></diagram></mxfile>

@@ -19,6 +19,31 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Store(models.Model):
+    VERIFICATION_CHOICES = (
+        ("pending", "Pending"),
+        ("verified", "Verified"),
+        ("rejected", "Rejected"),
+    )
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="store")
+    store_name = models.CharField(max_length=200)
+    owner_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    province = models.CharField(max_length=100)
+    
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+    
+    verification_status = models.CharField(max_length=20, choices=VERIFICATION_CHOICES, default="pending")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.store_name
+
 class Product(models.Model):
     GENDER_CHOICES = [
         ("men", "Men"),
@@ -46,6 +71,7 @@ class Product(models.Model):
         ("black", "Black"),
     ]
 
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name="products", null=True, blank=True)
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")

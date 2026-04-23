@@ -1,0 +1,102 @@
+{% extends base_template|default:'shop/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4" style="font-family: 'Cinzel', serif;">Become a Partner</h2>
+                <p class="text-center text-muted mb-4">Join our exclusive network of premium jewelry vendors.</p>
+
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+
+                    {% if not user.is_authenticated %}
+                    <h5 class="mb-3 text-uppercase small fw-bold text-muted border-bottom pb-2">Account Details</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        {{ form.user_email }}
+                        {% if form.user_email.errors %}<div class="text-danger small">{{
+                            form.user_email.errors|striptags }}</div>{% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Password</label>
+                            {{ form.password }}
+                            {% if form.password.errors %}<div class="text-danger small">{{
+                                form.password.errors|striptags }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            {{ form.confirm_password }}
+                            {% if form.confirm_password.errors %}<div class="text-danger small">{{
+                                form.confirm_password.errors|striptags }}</div>{% endif %}
+                        </div>
+                    </div>
+                    <div class="mb-4"></div>
+                    {% endif %}
+
+                    <h5 class="mb-3 text-uppercase small fw-bold text-muted border-bottom pb-2">Store Information</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label">Store Name</label>
+                        {{ form.store_name }}
+                        {% if form.store_name.errors %}<div class="text-danger small">{{
+                            form.store_name.errors|striptags }}</div>{% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Owner Name</label>
+                            {{ form.owner_name }}
+                            {% if form.owner_name.errors %}<div class="text-danger small">{{
+                                form.owner_name.errors|striptags }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Contact Email</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors|striptags }}
+                            </div>{% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone Number</label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}<div class="text-danger small">{{ form.phone.errors|striptags }}
+                            </div>{% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">City</label>
+                            {{ form.city }}
+                            {% if form.city.errors %}<div class="text-danger small">{{ form.city.errors|striptags }}
+                            </div>{% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        {{ form.address }}
+                        {% if form.address.errors %}<div class="text-danger small">{{ form.address.errors|striptags }}
+                        </div>{% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Province</label>
+                        {{ form.province }}
+                        {% if form.province.errors %}<div class="text-danger small">{{ form.province.errors|striptags }}
+                        </div>{% endif %}
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <button type="submit" class="btn btn-dark btn-lg">
+                            Register as Vendor
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

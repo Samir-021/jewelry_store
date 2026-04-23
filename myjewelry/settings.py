@@ -139,7 +139,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-ESEWA_SECRET_KEY = "8gBm/:&EnhH.1/q("
+ESEWA_SECRET_KEY = "8gBm/:&EnhH.1/q"
 
 # configure rest framework
 REST_FRAMEWORK = {

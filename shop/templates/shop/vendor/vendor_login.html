@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Login | Jewelry Store Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7f6;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 2.5rem;
+        }
+
+        .btn-vendor {
+            background-color: #b48a78;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .btn-vendor:hover {
+            background-color: #9c7668;
+            color: white;
+        }
+
+        .brand-logo {
+            font-family: 'Cinzel', serif;
+            color: #b48a78;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="brand-logo">VENDOR ADMIN</div>
+        <h5 class="text-center mb-4 text-muted">Sign in to manage your store</h5>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} small">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_username" class="form-label small fw-bold">Email Address</label>
+                <input type="email" name="username" class="form-control" id="id_username" required>
+            </div>
+            <div class="mb-4">
+                <label for="id_password" class="form-label small fw-bold">Password</label>
+                <input type="password" name="password" class="form-control" id="id_password" required>
+            </div>
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-vendor">Access Dashboard</button>
+            </div>
+            <div class="text-center">
+                <p class="small text-muted mb-0">Don't have a store? <a href="{% url 'shop:vendor_register' %}"
+                        class="text-decoration-none">Register as Vendor</a></p>
+                <p class="small mt-2"><a href="{% url 'shop:home' %}" class="text-muted"><i
+                            class="bi bi-arrow-left"></i> Back to Customer Site</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
